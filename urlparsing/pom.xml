@@ -32,13 +32,19 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
+            <version>16.0.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
             <scope>test</scope>
         </dependency>
-        
+        <dependency>
+            <groupId>com.google.caliper</groupId>
+            <artifactId>caliper</artifactId>
+            <version>1.0-beta-9788e7e</version> <!-- clone and install from https://code.google.com/p/caliper/ -->
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
 

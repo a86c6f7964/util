@@ -5,6 +5,8 @@ import com.indeed.util.urlparsing.QueryStringParser;
 import com.indeed.util.urlparsing.QueryStringParserCallback;
 import com.indeed.util.urlparsing.QueryStringParserCallbackBuilder;
 
+import java.util.Map;
+
 /**
  * @author: preetha
  */
@@ -46,7 +48,14 @@ public class IndeedKeyValueParser implements  KeyValueParser {
 
 
     @Override
-    public void parse(String logentry) {
+    public Map<String, String> parse(String logentry) {
+        final QueryStringParserCallback<JobSearchLogRecord> jobSearchLogRecordParser = createCallback();
+        final JobSearchLogRecord record = new JobSearchLogRecord();
+        QueryStringParser.parseQueryString(logentry, jobSearchLogRecordParser, record);
+        return null;
+    }
+
+    public static QueryStringParserCallback<JobSearchLogRecord> createCallback() {
         QueryStringParserCallbackBuilder<JobSearchLogRecord> builder = new QueryStringParserCallbackBuilder<JobSearchLogRecord>();
         builder.addCallback("uid", uidParser);
         builder.addCallback("uid", timestampParser);
@@ -54,8 +63,6 @@ public class IndeedKeyValueParser implements  KeyValueParser {
         builder.addCallback("l", locationParser);
         builder.addCallback("totCnt", intValueParser);
 
-        final QueryStringParserCallback<JobSearchLogRecord> jobSearchLogRecordParser = builder.buildCallback();
-        final JobSearchLogRecord record = new JobSearchLogRecord();
-        QueryStringParser.parseQueryString(logentry, jobSearchLogRecordParser, record);
+        return builder.buildCallback();
     }
 }
